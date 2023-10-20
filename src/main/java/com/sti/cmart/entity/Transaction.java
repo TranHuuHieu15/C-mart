@@ -2,10 +2,7 @@ package com.sti.cmart.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.Date;
@@ -16,6 +13,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "transactions")
+@Builder
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
