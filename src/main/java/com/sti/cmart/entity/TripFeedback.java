@@ -3,10 +3,7 @@ package com.sti.cmart.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Nationalized;
 
 @AllArgsConstructor
@@ -15,6 +12,7 @@ import org.hibernate.annotations.Nationalized;
 @Setter
 @Entity
 @Table(name = "tripFeedback")
+@Builder
 public class TripFeedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
