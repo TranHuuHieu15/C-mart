@@ -23,18 +23,18 @@ public class Address {
 
     @Size(max = 50)
     @NotNull
-    @Nationalized
+//    @Nationalized
     @Column(name = "\"position\"", nullable = false, length = 50)
     private String position;
 
     @Size(max = 255)
-    @Nationalized
+//    @Nationalized
     @Column(name = "description")
     private String description;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ward", nullable = false)
+    @JoinColumn(name = "wardId", nullable = false)
     private Ward ward;
 
     @OneToMany(mappedBy = "address")

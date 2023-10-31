@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "ward")
+@Table(name = "wards")
 @Builder
 public class Ward {
     @Id
@@ -23,20 +23,17 @@ public class Ward {
     private Long id;
 
     @Size(max = 50)
-    @NotNull
-    @Nationalized
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
     @Size(max = 255)
-    @Nationalized
+//    @Nationalized
     @Column(name = "description")
     private String description;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "district", nullable = false)
-    private District district;
+    @JoinColumn(name = "districtId", nullable = false)
+    private District districts;
 
     @OneToMany(mappedBy = "ward")
     private Set<Address> addresses;

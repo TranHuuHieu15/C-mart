@@ -32,6 +32,7 @@ public class SecurityConfiguration {
                         "/swagger-ui.html",
                         "/v3/api-docs/**",// dùng để test swagger
                         "api/v1/c-mart/account/**",
+                        "api/v1/c-mart/google-map/**",
                         "/error")
                 .permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")

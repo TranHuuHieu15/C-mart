@@ -37,6 +37,6 @@ public class District {
     @JoinColumn(name = "province", nullable = false)
     private Province province;
 
-    @OneToMany(mappedBy = "district")
+    @OneToMany(mappedBy = "districts")
     private Set<Ward> wards;
 }

@@ -19,35 +19,36 @@ public class GoogleMapServiceImpl implements GoogleMapService {
     private final GeoApiContext geoContext;
 
 
-    //Tính khỏa cách giữa 2 điểm
+    //todo: Tính khỏa cách giữa 2 điểm origin và destination (LatLng: là vị trí địa lý)
+    @Override
     public DistanceMatrixElement getDistance(@NonNull LatLng origin, @NonNull LatLng destination) throws IOException, InterruptedException, ApiException {
 
         // Tính toán khoảng cách
         DistanceMatrix distanceMatrix = DistanceMatrixApi
                 .newRequest(geoContext)
-                .origins(origin)
-                .destinations(destination)
-                .mode(TravelMode.DRIVING)
+                .origins(origin) // điểm xuất phát
+                .destinations(destination) // điểm đến
+                .mode(TravelMode.DRIVING) //tính toán bằng phương tiện gì
                 .await();
 
         // Lấy khoảng cách
         return distanceMatrix.rows[0].elements[0];
-
     }
 
+    //TODO: Lấy thông tin về địa chỉ dựa trên địa chỉ cung cấp
+    @Override
     public GeocodingResult[] getGeocoding(@NonNull String address) throws InterruptedException, ApiException, IOException {
-
         return GeocodingApi
                 .geocode(geoContext, address)
-                .await(); // Lấy thông tin địa chỉ
+                .await();
     }
 
+    //FIXME: lấy thông tin địa chỉ dựa trên một vị trí địa lý(latLng)
+    @Override
     public GeocodingResult[] reverseGeocode(LatLng latLng) throws IOException, InterruptedException, ApiException {
         return GeocodingApi
                 .reverseGeocode(geoContext, latLng)
                 .await()
                 ; // Lấy thông tin địa chỉ
     }
-
-
 }

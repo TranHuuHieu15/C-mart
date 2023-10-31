@@ -54,11 +54,11 @@ public class ProvinceFacade {
     }
 
     //update
-    public ProvinceDTO update(ProvinceDTO provinceDTO) throws ArchitectureException {
-        if (provinceDTO == null)
+    public ProvinceDTO update(Long id,ProvinceDTO provinceDTO) throws ArchitectureException {
+        if (provinceDTO == null || id == null)
             throw new InvalidParamException();
-        findById(provinceDTO.getId());
-        return provinceService.save(provinceDTO);
+        ProvinceDTO dto = provinceService.findById(id);
+        return provinceService.save(dto);
     }
 
     //delete

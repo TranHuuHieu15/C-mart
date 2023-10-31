@@ -22,7 +22,7 @@ public class WardMapper implements Function<Ward, WardDTO> {
         return WardDTO.builder()
                 .id(ward.getId())
                 .name(ward.getName())
-                .districtId(ward.getDistrict().getId())
+                .districtId(ward.getDistricts().getId())
                 .build();
     }
 
@@ -31,7 +31,7 @@ public class WardMapper implements Function<Ward, WardDTO> {
         return Ward.builder()
                 .id(dto.getId())
                 .name(dto.getName())
-                .district(district)
+                .districts(district)
                 .build();
     }
 

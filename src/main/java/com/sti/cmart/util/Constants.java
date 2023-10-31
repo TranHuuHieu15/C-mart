@@ -8,6 +8,7 @@ public class Constants {
 
     public static final class Paths {
         public static final String APP_PATH = BASE_URL + "/c-mart";
+        public static final String STAFF_PATH = APP_PATH + "/staff";
     }
 
     public static final class Exception {
