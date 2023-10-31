@@ -3,10 +3,7 @@ package com.sti.cmart.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Nationalized;
 
 import java.util.Set;
@@ -17,6 +14,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "address")
+@Builder
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,4 +39,5 @@ public class Address {
 
     @OneToMany(mappedBy = "address")
     private Set<Trip> trip;
+
 }

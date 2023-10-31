@@ -14,7 +14,6 @@ public class FeedBackSysDTO {
     private String content;
     private Date date;
     private Short status;
-    private Long customerId;
-    private Long driverId;
+    private Long accountId;
     private Long problemId;
 }

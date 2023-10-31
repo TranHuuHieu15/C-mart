@@ -2,10 +2,7 @@ package com.sti.cmart.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +10,8 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "region_apply")
+@Builder
+
 public class RegionApply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

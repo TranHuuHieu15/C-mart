@@ -21,30 +21,35 @@ public class WardServiceImpl implements WardService {
     private final WardMapper wardMapper;
 
     //findById
+    @Override
     public WardDTO findById(Long id) {
         Optional<Ward> ward = wardRepository.findById(id);
         return ward.map(wardMapper::apply).orElse(null);
     }
 
     //findAll
+    @Override
     public Page<WardDTO> findAll(SearchCriteria searchCriteria) {
         Page<Ward> list = wardRepository.findAll(Search.getPageable(searchCriteria));
         return list.map(wardMapper::apply);
     }
 
     //findByName
+    @Override
     public WardDTO findByName(String name) {
         Optional<Ward> ward = wardRepository.findByName(name);
         return ward.map(wardMapper::apply).orElse(null);
     }
 
     //save
+    @Override
     public WardDTO save(WardDTO wardDTO) {
         Ward ward = wardMapper.applyToWard(wardDTO);
         return wardMapper.apply(wardRepository.save(ward));
     }
 
     //delete
+    @Override
     public void delete(Long id) {
         wardRepository.deleteById(id);
     }

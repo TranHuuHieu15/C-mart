@@ -7,7 +7,7 @@ public class Constants {
     public static final String BASE_URL = "/api" + API_VERSION;
 
     public static final class Paths {
-        public static final String ENTITY_PATH = BASE_URL + "/c-mart";
+        public static final String APP_PATH = BASE_URL + "/c-mart";
     }
 
     public static final class Exception {

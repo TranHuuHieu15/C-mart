@@ -3,10 +3,7 @@ package com.sti.cmart.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Nationalized;
 
 import java.time.Instant;
@@ -18,6 +15,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "feedbackSys")
+@Builder
 public class FeedbackSy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,17 +34,12 @@ public class FeedbackSy {
 
     @NotNull
     @Column(name = "status", nullable = false)
-    private Boolean status = false;
+    private Short status;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer", nullable = false)
-    private Customer customer;
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "driver", nullable = false)
-    private Driver driver;
+    @JoinColumn(name = "account", nullable = false)
+    private Account accounts;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

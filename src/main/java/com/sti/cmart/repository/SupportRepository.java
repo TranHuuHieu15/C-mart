@@ -10,5 +10,4 @@ import java.util.Optional;
 @Repository
 public interface SupportRepository extends JpaRepository<Support, Long> {
     Optional<Support> findByName(String name);
-    Optional<Support> findByPhone(String phone);
 }

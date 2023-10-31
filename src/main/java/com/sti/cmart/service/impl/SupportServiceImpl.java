@@ -20,36 +20,36 @@ public class SupportServiceImpl implements SupportService {
     private final SupportMapper supportMapper;
 
     //findById
+    @Override
     public SupportDTO findById(Long id) {
         Optional<Support> support = supportRepository.findById(id);
         return support.map(supportMapper::apply).orElse(null);
     }
 
     //findAll
+    @Override
     public Page<SupportDTO> findAll(SearchCriteria searchCriteria) {
         Page<Support> list = supportRepository.findAll(Search.getPageable(searchCriteria));
         return list.map(supportMapper::apply);
     }
 
     //save
+    @Override
     public SupportDTO save(SupportDTO supportDTO) {
         Support support = supportMapper.applyToSupport(supportDTO);
         return supportMapper.apply(supportRepository.save(support));
     }
 
     //delete
+    @Override
     public void delete(Long id) {
         supportRepository.deleteById(id);
     }
 
     //findByName
+    @Override
     public SupportDTO findByName(String name) {
         Optional<Support> support = supportRepository.findByName(name);
-        return support.map(supportMapper::apply).orElse(null);
-    }
-
-    public SupportDTO findByPhone(String phone) {
-        Optional<Support> support = supportRepository.findByPhone(phone);
         return support.map(supportMapper::apply).orElse(null);
     }
 

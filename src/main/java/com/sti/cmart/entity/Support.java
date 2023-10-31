@@ -28,11 +28,6 @@ public class Support {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Size(max = 10)
-    @NotNull
-    @Column(name = "phone", nullable = false, length = 10)
-    private String phone;
-
     @Size(max = 255)
     @Nationalized
     @Column(name = "description")

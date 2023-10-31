@@ -15,7 +15,6 @@ public class SupportMapper implements Function<Support, SupportDTO> {
         return SupportDTO.builder()
                 .id(support.getId())
                 .name(support.getName())
-                .phone(support.getPhone())
                 .description(support.getDescription())
                 .build();
     }
@@ -24,7 +23,6 @@ public class SupportMapper implements Function<Support, SupportDTO> {
         return Support.builder()
                 .id(supportDTO.getId())
                 .name(supportDTO.getName())
-                .phone(supportDTO.getPhone())
                 .description(supportDTO.getDescription())
                 .build();
     }

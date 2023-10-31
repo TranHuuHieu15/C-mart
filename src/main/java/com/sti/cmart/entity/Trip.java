@@ -27,11 +27,6 @@ public class Trip {
     private Long id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "driver", nullable = false)
-    private Driver driver;
-
-    @NotNull
     @Column(name = "\"date\"", nullable = false)
     private Date date;
 
@@ -87,8 +82,12 @@ public class Trip {
     private Chat chats;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "account", nullable = false)
+    private Account driver;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_account", nullable = false)
+    private Account user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "address", nullable = false)

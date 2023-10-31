@@ -43,8 +43,8 @@ public class EWallet {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "account", nullable = false)
+    private Account account;
 
     @OneToMany(mappedBy = "eWallet")
     private Set<Transaction> transactions;

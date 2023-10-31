@@ -8,6 +8,7 @@ import org.hibernate.annotations.Nationalized;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,20 +18,21 @@ import java.util.Date;
 @Table(name = "chat")
 @Builder
 public class Chat {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotNull
+//    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "userId", nullable = false)
+    private Account user;
 
-    @NotNull
+//    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "driver", nullable = false)
-    private Driver driver;
+    @JoinColumn(name ="driverId", nullable = false)
+    private Account driver;
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -39,12 +41,18 @@ public class Chat {
 
     @Size(max = 255)
     @NotNull
-    @Nationalized
-    @Column(name = "content", nullable = false)
-    private String content;
+    @Column(name = "title", nullable = false)
+    private String title;
 
     @NotNull
     @Column(name = "\"date\"", nullable = false)
     private Date date;
+
+    @NotNull
+    private Short status;
+
+
+    @OneToMany(mappedBy = "chats")
+    private Set<Message> messages;
 
 }

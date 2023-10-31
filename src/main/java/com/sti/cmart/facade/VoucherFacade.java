@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 public class VoucherFacade {
 
     private final VoucherService voucherService;
-    private final VoucherRepository voucherRepository;
 
     //findById
     public VoucherDTO findById(Long id) throws ArchitectureException {

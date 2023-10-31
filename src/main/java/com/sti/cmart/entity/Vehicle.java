@@ -3,19 +3,18 @@ package com.sti.cmart.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Nationalized;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
+@Builder
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +47,7 @@ public class Vehicle {
 
     @NotNull
     @Column(name = "yearOfManufacture", nullable = false)
-    private LocalDate yearOfManufacture;
+    private Date yearOfManufacture;
 
     @Size(max = 255)
     @Nationalized
@@ -57,11 +56,11 @@ public class Vehicle {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "vehicleType", nullable = false)
+    @JoinColumn(name = "vehicleTypeId", nullable = false)
     private VehicleType vehicleType;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "vehicleType", nullable = false)
-    private Driver driver;
+    @JoinColumn(name = "accountId", nullable = false)
+    private Account account;
 }
