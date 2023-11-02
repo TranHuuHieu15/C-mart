@@ -51,4 +51,26 @@ public class GoogleMapServiceImpl implements GoogleMapService {
                 .await()
                 ; // Lấy thông tin địa chỉ
     }
+
+    @Override
+    public DistanceMatrix getDistanceAndDuration(@NonNull String originAddress, @NonNull String destinationAddress) throws InterruptedException, ApiException, IOException {
+        // Lấy thông tin vị trí từ địa chỉ
+        GeocodingResult[] originResults = getGeocoding(originAddress);
+        GeocodingResult[] destinationResults = getGeocoding(destinationAddress);
+
+        // Lấy vị trí địa lý từ kết quả
+        LatLng originLatLng = originResults[0].geometry.location;
+        System.out.println("Điểm đón: " + originLatLng);
+        LatLng destinationLatLng = destinationResults[0].geometry.location;
+        System.out.println("Điểm trả: " + destinationLatLng);
+
+        // Tính toán khoảng cách và thời gian
+        return DistanceMatrixApi
+                .newRequest(geoContext)
+                .origins(originLatLng)
+                .destinations(destinationLatLng)
+                .mode(TravelMode.DRIVING)
+                .await();
+    }
+
 }

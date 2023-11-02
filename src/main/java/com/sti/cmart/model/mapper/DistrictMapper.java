@@ -15,7 +15,6 @@ import java.util.function.Function;
 public class DistrictMapper implements Function<District, DistrictDTO> {
 
     private final ProvinceRepository provinceRepository;
-    private final WardRepository wardRepository;
 
     @Override
     public DistrictDTO apply(District district) {

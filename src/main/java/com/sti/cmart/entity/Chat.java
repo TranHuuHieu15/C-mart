@@ -34,7 +34,6 @@ public class Chat {
     @JoinColumn(name ="driverId", nullable = false)
     private Account driver;
 
-    @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "trip", nullable = false)
     private Trip trip;

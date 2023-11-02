@@ -54,12 +54,10 @@ public class Vehicle {
     @Column(name = "description")
     private String description;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "vehicleTypeId", nullable = false)
     private VehicleType vehicleType;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "accountId", nullable = false)
     private Account account;

@@ -11,7 +11,6 @@ import lombok.*;
 @Entity
 @Table(name = "region_apply")
 @Builder
-
 public class RegionApply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

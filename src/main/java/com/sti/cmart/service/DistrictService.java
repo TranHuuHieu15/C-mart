@@ -12,11 +12,13 @@ public interface DistrictService {
     Page<DistrictDTO> findAll(SearchCriteria searchCriteria);
 
     //findByName
-    DistrictDTO findByName(String name);
+    Page<DistrictDTO> findByName(String name, SearchCriteria searchCriteria);
 
     //save
     DistrictDTO save(DistrictDTO districtDTO);
 
     //delete
     void delete(Long id);
+
+    DistrictDTO update(Long id, DistrictDTO dto);
 }

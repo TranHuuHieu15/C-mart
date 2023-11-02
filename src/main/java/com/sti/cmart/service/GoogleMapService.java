@@ -1,6 +1,7 @@
 package com.sti.cmart.service;
 
 import com.google.maps.errors.ApiException;
+import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.DistanceMatrixElement;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
@@ -17,4 +18,6 @@ public interface GoogleMapService {
 
     //FIXME: lấy thông tin địa chỉ dựa trên một vị trí địa lý(latLng)
     GeocodingResult[] reverseGeocode(LatLng latLng) throws IOException, InterruptedException, ApiException;
+
+    DistanceMatrix getDistanceAndDuration(@NonNull String originAddress, @NonNull String destinationAddress) throws InterruptedException, ApiException, IOException;
 }

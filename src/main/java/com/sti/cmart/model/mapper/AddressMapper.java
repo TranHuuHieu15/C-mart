@@ -15,7 +15,6 @@ import java.util.function.Function;
 public class AddressMapper implements Function<Address, AddressDTO> {
 
     private final WardRepository wardRepository;
-    private final AccountRepository accountRepository;
     @Override
     public AddressDTO apply(Address address) {
         return AddressDTO.builder()

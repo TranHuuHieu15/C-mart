@@ -46,11 +46,15 @@ public class AddressFacade {
     }
 
     //update
-    public AddressDTO update(AddressDTO addressDTO) throws ArchitectureException {
-        if (addressDTO == null)
+    public AddressDTO update(Long id,AddressDTO addressDTO) throws ArchitectureException {
+        if (addressDTO == null || id == null)
             throw new InvalidParamException();
-        findById(addressDTO.getId());
-        return addressSerivce.save(addressDTO);
+        AddressDTO addressDTO1 = addressSerivce.findById(id);
+        addressDTO1.setId(addressDTO.getId());
+        addressDTO1.setPosition(addressDTO.getPosition());
+        addressDTO1.setDescription(addressDTO.getDescription());
+        addressDTO1.setWardId(addressDTO.getWardId());
+        return addressSerivce.save(addressDTO1);
     }
 
     //detele

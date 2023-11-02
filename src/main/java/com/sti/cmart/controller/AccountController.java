@@ -66,7 +66,7 @@ public class AccountController {
                     description = "response success",
                     content = {
                             @Content(
-                                    schema = @Schema(implementation = Long.class),
+                                    schema = @Schema(implementation = AccountDTO.class),
                                     mediaType = "application/json"
                             )
                     }

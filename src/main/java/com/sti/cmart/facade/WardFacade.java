@@ -1,5 +1,6 @@
 package com.sti.cmart.facade;
 
+import com.sti.cmart.entity.Ward;
 import com.sti.cmart.exception.common.InvalidParamException;
 import com.sti.cmart.exception.core.ArchitectureException;
 import com.sti.cmart.exception.entity.EntityAlreadyExistException;
@@ -28,10 +29,10 @@ public class WardFacade {
     }
 
     //findByName
-    public WardDTO findByName(String name) throws ArchitectureException {
+    public Page<WardDTO> findByName(String name, SearchCriteria searchCriteria) throws ArchitectureException {
         if (name == null)
             throw new InvalidParamException();
-        WardDTO dto = wardService.findByName(name);
+        Page<WardDTO> dto = wardService.findByName(name, searchCriteria);
         if (dto == null)
             throw new EntityNotFoundException();
         return dto;
@@ -56,11 +57,11 @@ public class WardFacade {
     }
 
     //update
-    public WardDTO update(WardDTO wardDTO) throws ArchitectureException {
-        if (wardDTO == null)
+    public WardDTO update(Long id,WardDTO wardDTO) throws ArchitectureException {
+        if (wardDTO == null || id == null)
             throw new InvalidParamException();
-        findById(wardDTO.getId());
-        return wardService.save(wardDTO);
+        WardDTO ward = wardService.findById(id);
+        return wardService.updateById(id, wardDTO);
     }
 
     //delete

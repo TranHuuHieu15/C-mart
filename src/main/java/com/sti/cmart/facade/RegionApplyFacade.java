@@ -46,11 +46,16 @@ public class RegionApplyFacade {
     }
 
     //update
-    public RegionApplyDTO update(RegionApplyDTO dto) throws ArchitectureException {
-        if (dto == null)
+    public RegionApplyDTO update(Long id,RegionApplyDTO dto) throws ArchitectureException {
+        if (dto == null || id == null)
             throw new InvalidParamException();
-        findById(dto.getId());
-        return regionApplyService.save(dto);
+        RegionApplyDTO regionApplyDTO = regionApplyService.findById(id);
+        if (regionApplyDTO == null)
+            throw new EntityNotFoundException();
+        regionApplyDTO.setId(dto.getId());
+        regionApplyDTO.setServiceId(dto.getServiceId());
+        regionApplyDTO.setProvinceId(dto.getProvinceId());
+        return regionApplyService.save(regionApplyDTO);
     }
 
     //detele

@@ -1,7 +1,6 @@
 package com.sti.cmart.controller;
 
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.DistanceMatrixElement;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.sti.cmart.facade.GoogleMapFacade;
@@ -61,6 +60,33 @@ public class GoogleMapController {
             String reverseGeocode = googleMapFacade.reverseGeocode(latLng);
             return ResponseEntity.ok(reverseGeocode);
         } catch (IOException | InterruptedException | ApiException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đã xảy ra lỗi");
+        }
+    }
+
+//    @PostMapping("/distance-and-duration")
+//    public ResponseEntity<String> getDistanceAndDuration(@RequestBody MapRequest mapRequest) {
+//        String originAddress = mapRequest.getOriginAddress();
+//        String destinationAddress = mapRequest.getDestAddress();
+//        try {
+//            String distanceAndDuration = googleMapFacade.getDistanceAndDuration(originAddress, destinationAddress);
+//            return ResponseEntity.ok(distanceAndDuration);
+//        } catch (InterruptedException | ApiException | IOException e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đã xảy ra lỗi");
+//        }
+//    }
+
+
+    @PostMapping("/distance-and-duration2")
+    public ResponseEntity<Object> getDistanceAndDuration(@RequestBody MapRequest mapRequest) {
+        String originAddress = mapRequest.getOriginAddress();
+        String destinationAddress = mapRequest.getDestAddress();
+        try {
+            Double distanceAndDuration = (double) googleMapFacade.getDistanceAndDuration(originAddress, destinationAddress).distance.inMeters;
+            return ResponseEntity.ok(distanceAndDuration);
+        } catch (InterruptedException | ApiException | IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đã xảy ra lỗi");
         }

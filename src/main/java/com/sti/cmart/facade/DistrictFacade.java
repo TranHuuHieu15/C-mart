@@ -28,10 +28,10 @@ public class DistrictFacade {
     }
 
     //findByName
-    public DistrictDTO findByName(String name) throws ArchitectureException {
+    public Page<DistrictDTO> findByName(String name, SearchCriteria searchCriteria) throws ArchitectureException {
         if (name == null)
             throw new InvalidParamException();
-        DistrictDTO dto = districtService.findByName(name);
+        Page<DistrictDTO> dto = districtService.findByName(name, searchCriteria);
         if (dto == null)
             throw new EntityNotFoundException();
         return dto;
@@ -56,11 +56,11 @@ public class DistrictFacade {
     }
 
     //update
-    public DistrictDTO update(DistrictDTO districtDTO) throws ArchitectureException {
-        if (districtDTO == null)
+    public DistrictDTO update(Long id, DistrictDTO districtDTO) throws ArchitectureException {
+        if (districtDTO == null || id == null)
             throw new InvalidParamException();
-        findById(districtDTO.getId());
-        return districtService.save(districtDTO);
+        DistrictDTO dto = districtService.findById(id);
+        return districtService.update(id,dto);
     }
 
     //delete

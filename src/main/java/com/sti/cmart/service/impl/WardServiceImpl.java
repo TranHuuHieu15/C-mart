@@ -36,9 +36,9 @@ public class WardServiceImpl implements WardService {
 
     //findByName
     @Override
-    public WardDTO findByName(String name) {
-        Optional<Ward> ward = wardRepository.findByName(name);
-        return ward.map(wardMapper::apply).orElse(null);
+    public Page<WardDTO> findByName(String name, SearchCriteria searchCriteria) {
+        Page<Ward> ward = wardRepository.findByName(name,Search.getPageable(searchCriteria));
+        return ward.map(wardMapper::apply);
     }
 
     //save
@@ -52,6 +52,14 @@ public class WardServiceImpl implements WardService {
     @Override
     public void delete(Long id) {
         wardRepository.deleteById(id);
+    }
+
+    @Override
+    public WardDTO updateById(Long id, WardDTO wardDTO) {
+        Ward ward = wardRepository.findById(id).orElse(null);
+        ward.setName(wardDTO.getName());
+        Ward updatedWard = wardRepository.save(ward);
+        return wardMapper.apply(updatedWard);
     }
 
 }

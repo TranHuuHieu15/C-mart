@@ -12,4 +12,6 @@ public class MapRequest {
     private Double originLng;
     private Double destLat;
     private Double destLng;
+    private String originAddress;
+    private String destAddress;
 }
