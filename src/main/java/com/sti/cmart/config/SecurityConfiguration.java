@@ -33,6 +33,9 @@ public class SecurityConfiguration {
                         "/v3/api-docs/**",// dùng để test swagger
                         "api/v1/c-mart/account/**",
                         "api/v1/c-mart/google-map/**",
+                        "api/v1/c-mart/staff/**",
+                        "api/v1/c-mart/register",
+                        "api/v1/c-mart/login",
                         "/error")
                 .permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")

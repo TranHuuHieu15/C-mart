@@ -28,9 +28,9 @@ public class ServicesServiceImpl implements ServicesService {
 
     //findByName
     @Override
-    public ServiceDTO findByName(String name) {
-        Optional<Service> service = serviceRepository.findByName(name);
-        return service.map(serviceMapper::apply).orElse(null);
+    public Page<ServiceDTO> findByName(String name, SearchCriteria searchCriteria) {
+        Page<Service> service = serviceRepository.findByName(name, Search.getPageable(searchCriteria));
+        return service.map(serviceMapper::apply);
     }
 
     //findAll

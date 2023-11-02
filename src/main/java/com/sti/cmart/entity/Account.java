@@ -37,8 +37,7 @@ public class Account implements UserDetails {
     private String password;
 
     @Size(max = 50)
-    @NotNull
-    @Column(name = "fullname", nullable = false, length = 50)
+    @Column(columnDefinition = "nvarchar(50) not null")
     private String fullname;
 
     @Size(max = 10)

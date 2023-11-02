@@ -28,11 +28,11 @@ public class ServiceFacade {
     }
 
     //findByName
-    public ServiceDTO findByName(String name) throws ArchitectureException {
+    public Page<ServiceDTO> findByName(String name, SearchCriteria searchCriteria) throws ArchitectureException {
         if (name == null)
             throw new InvalidParamException();
-        ServiceDTO serviceDTO = servicesService.findByName(name);
-        if (serviceDTO == null)
+        Page<ServiceDTO> serviceDTO = servicesService.findByName(name, searchCriteria);
+        if (serviceDTO.isEmpty())
             throw new EntityNotFoundException();
         return serviceDTO;
     }
@@ -56,11 +56,21 @@ public class ServiceFacade {
     }
 
     //update
-    public ServiceDTO update(ServiceDTO serviceDTO) throws ArchitectureException {
-        if (serviceDTO == null)
+    public ServiceDTO update(Long id, ServiceDTO serviceDTO) throws ArchitectureException {
+        if (serviceDTO == null || id == null)
             throw new InvalidParamException();
-        findById(serviceDTO.getId());
-        return servicesService.save(serviceDTO);
+        ServiceDTO dto = servicesService.findById(id);
+        if (dto == null)
+            throw new EntityNotFoundException();
+        dto.setId(serviceDTO.getId());
+        dto.setName(serviceDTO.getName());
+        dto.setPoster(serviceDTO.getPoster());
+        dto.setDescription(serviceDTO.getDescription());
+        dto.setMinPrice(serviceDTO.getMinPrice());
+        dto.setMinKmRequire(serviceDTO.getMinKmRequire());
+        dto.setPricePerKm(serviceDTO.getPricePerKm());
+        dto.setVehicleTypeId(serviceDTO.getVehicleTypeId());
+        return servicesService.save(dto);
     }
 
     //delete

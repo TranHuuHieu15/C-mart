@@ -94,7 +94,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResponseEntity<?> save(AccountDTO registerDto) {
-        Role role = roleRepository.findByRoleName(RoleName.USER).orElseThrow(() -> new EntityNotFoundException("Role not found"));
+//        Role role = roleRepository.findByRoleName(RoleName.USER).orElseThrow(() -> new EntityNotFoundException("Role not found"));
+        Role defaultRole = roleRepository.findByRoleName(RoleName.USER)
+                .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy role mặc định"));
+
+        Role selectedRole = registerDto.getRoleId() != null ?
+                roleRepository.findById(registerDto.getRoleId())
+                        .orElseThrow(() -> new EntityNotFoundException("Role not found")) :
+                defaultRole;
         if (accountRepository.existsByUsername(registerDto.getUsername())) {
             return new ResponseEntity<>("username is already taken !", HttpStatus.SEE_OTHER);
         } else {
@@ -107,10 +114,10 @@ public class AccountServiceImpl implements AccountService {
                     .isActive(true)
                     .image(registerDto.getImage())
                     .status(registerDto.getStatus())
-                    .roles(Collections.singletonList(role))
+                    .roles(Collections.singletonList(selectedRole))
                     .build();
             accountRepository.save(account);
-            String token = jwtService.generateToken(registerDto.getEmail(), Collections.singletonList(role.getId()));
+            String token = jwtService.generateToken(registerDto.getEmail(), Collections.singletonList(selectedRole.getId()));
             return new ResponseEntity<>(new RegisterRequest(registerDto.getUsername(), registerDto.getEmail(), registerDto.getImage(), token), HttpStatus.OK);
         }
     }

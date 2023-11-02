@@ -9,7 +9,7 @@ public interface ServicesService {
     ServiceDTO findById(Long id);
 
     //findByName
-    ServiceDTO findByName(String name);
+    Page<ServiceDTO> findByName(String name, SearchCriteria searchCriteria);
 
     //findAll
     Page<ServiceDTO> findAll(SearchCriteria searchCriteria);

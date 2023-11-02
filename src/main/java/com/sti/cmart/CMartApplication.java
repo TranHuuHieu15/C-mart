@@ -26,20 +26,17 @@ public class CMartApplication {
     CommandLineRunner run(AccountService iUserService, RoleRepository iRoleRepository, AccountRepository iUserRepository, PasswordEncoder passwordEncoder) {
         return args -> {
 
-            if (!iRoleRepository.existsByRoleName(RoleName.USER)) {
-                iRoleRepository.save(new Role(RoleName.USER));
-            }
-
             if (!iRoleRepository.existsByRoleName(RoleName.ADMIN)) {
                 iRoleRepository.save(new Role(RoleName.ADMIN));
             }
-
             if (!iRoleRepository.existsByRoleName(RoleName.STAFF)) {
                 iRoleRepository.save(new Role(RoleName.STAFF));
             }
-
             if (!iRoleRepository.existsByRoleName(RoleName.DRIVER)) {
                 iRoleRepository.save(new Role(RoleName.DRIVER));
+            }
+            if (!iRoleRepository.existsByRoleName(RoleName.USER)) {
+                iRoleRepository.save(new Role(RoleName.USER));
             }
 //            iUserService.saveRole(new Role(RoleName.USER));
 //            iUserService.saveRole(new Role(RoleName.ADMIN));
