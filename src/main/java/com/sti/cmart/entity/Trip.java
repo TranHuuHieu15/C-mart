@@ -77,12 +77,12 @@ public class Trip {
     private Chat chats;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "account", nullable = false)
-    private Account driver;
+    @JoinColumn(name = "accountDriver", nullable = false)
+    private Role driver;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_account", nullable = false)
-    private Account user;
+    @JoinColumn(name = "accountDriver", nullable = false)
+    private Role user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "address", nullable = false)

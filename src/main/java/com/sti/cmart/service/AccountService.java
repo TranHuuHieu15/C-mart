@@ -31,13 +31,9 @@ public interface AccountService {
     //find by phone
     AccountDTO findByPhone(String phone);
 
-    ResponseEntity<?> save(AccountDTO registerDto);
-
     Role saveRole(Role role);
 
     Account saverUser(Account user);
-
-    ResponseEntity<?> login(LoginRequest loginRequest);
 
     AccountDTO saveDTO(AccountDTO dto);
 }

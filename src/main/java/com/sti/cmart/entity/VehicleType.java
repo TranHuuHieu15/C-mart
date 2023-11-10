@@ -23,7 +23,6 @@ public class VehicleType {
     private Long id;
 
     @Size(max = 50)
-    @NotNull
     @Nationalized
     @Column(name = "name", nullable = false, length = 50)
     private String name;

@@ -14,6 +14,7 @@ public class VehicleTypeMapper implements Function<VehicleType, VehicleTypeDTO> 
     @Override
     public VehicleTypeDTO apply(VehicleType vehicleType) {
         return VehicleTypeDTO.builder()
+                .id(vehicleType.getId())
                 .name(vehicleType.getName())
                 .rate(vehicleType.getRate())
                 .description(vehicleType.getDescription())
@@ -22,6 +23,7 @@ public class VehicleTypeMapper implements Function<VehicleType, VehicleTypeDTO> 
 
     public VehicleType applyToVehicleType(VehicleTypeDTO dto) {
         return VehicleType.builder()
+                .id(dto.getId())
                 .name(dto.getName())
                 .rate(dto.getRate())
                 .description(dto.getDescription())

@@ -1,18 +1,18 @@
-package com.sti.cmart.other.request;
+package com.sti.cmart.other.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+@Builder
+public class RegisterResponse {
     private String username;
     private String fullname;
     private String email;
-    private String password;
-    private String phone;
-//    private String accessToken;
-//    private String refreshToken;
+    private String accessToken;
+    private String refreshToken;
 }

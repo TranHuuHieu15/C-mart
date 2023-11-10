@@ -40,9 +40,9 @@ public class VehicleFacade {
     public VehicleDTO save(VehicleDTO vehicleDTO) throws ArchitectureException {
         if (vehicleDTO == null)
             throw new InvalidParamException();
-        VehicleDTO dto = vehicleService.findById(vehicleDTO.getId());
-        if (dto != null)
-            throw new EntityAlreadyExistException();
+//        VehicleDTO dto = vehicleService.findById(vehicleDTO.getId());
+//        if (dto != null)
+//            throw new EntityAlreadyExistException();
         return vehicleService.save(vehicleDTO);
     }
 

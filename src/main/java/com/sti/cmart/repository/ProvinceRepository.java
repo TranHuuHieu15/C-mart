@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProvinceRepository extends JpaRepository<Province, Long> {
     Page<Province> findByName(String name, Pageable pageable);
+    Province findByName(String name);
 }

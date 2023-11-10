@@ -21,24 +21,28 @@ public class TripServiceImpl implements TripService {
     private final TripMapper tripMapper;
 
     //findById
+    @Override
     public TripDTO findById(Long id) {
         Optional<Trip> dto = tripRepository.findById(id);
         return dto.map(tripMapper::apply).orElse(null);
     }
 
     //findAll
+    @Override
     public Page<TripDTO> findAll(SearchCriteria searchCriteria) {
         Page<Trip> dto = tripRepository.findAll(Search.getPageable(searchCriteria));
         return dto.map(tripMapper::apply);
     }
 
     //save
+    @Override
     public TripDTO save(TripDTO tripDTO) {
         Trip trip = tripMapper.applyToTrip(tripDTO);
         return tripMapper.apply(tripRepository.save(trip));
     }
 
     //delete
+    @Override
     public void delete(Long id) {
         tripRepository.deleteById(id);
     }

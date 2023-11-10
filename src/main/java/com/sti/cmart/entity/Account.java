@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -58,18 +59,12 @@ public class Account implements UserDetails {
     @Column(name = "image")
     private String image;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Trip> trips;
-
-    @OneToMany(mappedBy = "driver")
-    private Set<Trip> trip;
-
     @NotNull
     @Column(name = "status", nullable = false)
     private Short status;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    List<Role> roles;
+    @OneToMany(mappedBy = "account",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Role> roles;
 
     @OneToMany(mappedBy = "accounts")
     private Set<FeedbackSy> feedbackSys;
@@ -83,30 +78,17 @@ public class Account implements UserDetails {
     @OneToMany(mappedBy = "account")
     private Set<Message> messages;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Chat> accountUser;
-
-    @OneToMany(mappedBy = "driver")
-    private Set<Chat> accountDriver;
-
-    public Account(String username, String fullname, String email, String password,String phone,boolean isActive,short status, List<Role> roles) {
-        this.username = username;
-        this.fullname = fullname;
-        this.email = email;
-        this.phone = phone;
-        this.isActive = isActive;
-        this.status = status;
-        this.password = password;
-        this.roles = roles;
-    }
-
+    //Lấy quyền
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        this.roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
-        return authorities;
+        return roles
+                .stream()
+                .map(
+                        role -> new SimpleGrantedAuthority(role.getRoleName()))
+                .collect(Collectors.toList());
     }
 
+    //Lấy username
     @Override
     public String getUsername() {
         return this.username;
@@ -116,7 +98,6 @@ public class Account implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
-
     @Override
     public boolean isAccountNonLocked() {
         return true;

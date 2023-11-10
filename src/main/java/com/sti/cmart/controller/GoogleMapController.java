@@ -1,10 +1,13 @@
 package com.sti.cmart.controller;
 
 import com.google.maps.errors.ApiException;
+import com.google.maps.model.Distance;
+import com.google.maps.model.DistanceMatrixElement;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.sti.cmart.facade.GoogleMapFacade;
 import com.sti.cmart.other.request.AddressRequest;
+import com.sti.cmart.other.request.DistanceRequest;
 import com.sti.cmart.other.request.MapRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +28,11 @@ public class GoogleMapController {
     private final GoogleMapFacade googleMapFacade;
 
     @PostMapping("/distance")
-    public ResponseEntity<String> getDistance(@RequestBody MapRequest mapRequest) {
-        LatLng origin = new LatLng(mapRequest.getOriginLat(), mapRequest.getOriginLng());
-        LatLng destination = new LatLng(mapRequest.getDestLat(), mapRequest.getDestLng());
+    public ResponseEntity<Object> getDistance(@RequestBody DistanceRequest distanceRequest) {
+        LatLng origin = new LatLng(distanceRequest.getStartLat(), distanceRequest.getStartLng());
+        LatLng destination = new LatLng(distanceRequest.getFinishLat(), distanceRequest.getFinishLng());
         try {
-            String distance = googleMapFacade.getDistance(origin, destination);
+            String distance = googleMapFacade.getDistance(distanceRequest);
             return ResponseEntity.ok(distance);
         } catch (IOException | InterruptedException | ApiException e) {
             e.printStackTrace();
@@ -53,38 +56,13 @@ public class GoogleMapController {
         }
     }
 
-    @PostMapping("/reverse-geocoding")
-    public ResponseEntity<String> reverseGeocode(@RequestBody MapRequest mapRequest) {
-        LatLng latLng = new LatLng(mapRequest.getOriginLat(), mapRequest.getOriginLng());
-        try {
-            String reverseGeocode = googleMapFacade.reverseGeocode(latLng);
-            return ResponseEntity.ok(reverseGeocode);
-        } catch (IOException | InterruptedException | ApiException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đã xảy ra lỗi");
-        }
-    }
-
-//    @PostMapping("/distance-and-duration")
-//    public ResponseEntity<String> getDistanceAndDuration(@RequestBody MapRequest mapRequest) {
-//        String originAddress = mapRequest.getOriginAddress();
-//        String destinationAddress = mapRequest.getDestAddress();
-//        try {
-//            String distanceAndDuration = googleMapFacade.getDistanceAndDuration(originAddress, destinationAddress);
-//            return ResponseEntity.ok(distanceAndDuration);
-//        } catch (InterruptedException | ApiException | IOException e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đã xảy ra lỗi");
-//        }
-//    }
-
-
+    //Nhập 2 địa chỉ đến và hiện tại
     @PostMapping("/distance-and-duration2")
     public ResponseEntity<Object> getDistanceAndDuration(@RequestBody MapRequest mapRequest) {
         String originAddress = mapRequest.getOriginAddress();
         String destinationAddress = mapRequest.getDestAddress();
         try {
-            Double distanceAndDuration = (double) googleMapFacade.getDistanceAndDuration(originAddress, destinationAddress).distance.inMeters;
+            Distance distanceAndDuration = googleMapFacade.getDistanceAndDuration(originAddress, destinationAddress).distance;
             return ResponseEntity.ok(distanceAndDuration);
         } catch (InterruptedException | ApiException | IOException e) {
             e.printStackTrace();

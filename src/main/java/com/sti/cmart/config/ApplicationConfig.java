@@ -1,6 +1,6 @@
 package com.sti.cmart.config;
 
-import com.sti.cmart.service.CustomerUserDetailsService;
+import com.sti.cmart.service.impl.CustomerUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

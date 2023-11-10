@@ -30,7 +30,7 @@ public class AccountController {
     private final AccountFacade accountFacade;
 
     @SneakyThrows
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     @Operation(summary = "update account", description = "update account")
     @ApiResponses({
             @ApiResponse(
@@ -54,8 +54,8 @@ public class AccountController {
                     }
             )}
     )
-    public AccountDTO update(@RequestBody AccountDTO accountDTO) {
-        return accountFacade.update(accountDTO);
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody AccountDTO accountDTO) {
+        return ResponseHandler.response(HttpStatus.OK, accountFacade.update(id, accountDTO), true);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -82,8 +82,9 @@ public class AccountController {
                     }
             )}
     )
-    public void delete(@PathVariable Long id) throws ArchitectureException {
+    public ResponseEntity<Object> delete(@PathVariable Long id) throws ArchitectureException {
         accountFacade.delete(id);
+        return ResponseHandler.response(HttpStatus.OK, "Xóa thành công!", true);
     }
 
 

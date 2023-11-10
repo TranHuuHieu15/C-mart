@@ -41,6 +41,12 @@ public class ProvinceServiceImpl implements ProvinceService {
         return list.map(provinceMapper::apply);
     }
 
+    @Override
+    public ProvinceDTO findByName(String name) {
+        Optional<Province> province = Optional.ofNullable(provinceRepository.findByName(name));
+        return province.map(provinceMapper::apply).orElse(null);
+    }
+
     //save
     @Override
     public ProvinceDTO save(ProvinceDTO provinceDTO) {

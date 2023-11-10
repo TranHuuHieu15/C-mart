@@ -1,5 +1,6 @@
 package com.sti.cmart.service;
 
+import com.sti.cmart.entity.Province;
 import com.sti.cmart.model.dto.ProvinceDTO;
 import com.sti.cmart.util.SearchCriteria;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,8 @@ public interface ProvinceService {
 
     //findByName
     Page<ProvinceDTO> findByName(String name, SearchCriteria searchCriteria);
+
+    ProvinceDTO findByName(String name);
 
     //save
     ProvinceDTO save(ProvinceDTO provinceDTO);

@@ -1,8 +1,12 @@
 package com.sti.cmart.service;
 
+import com.google.maps.errors.ApiException;
 import com.sti.cmart.model.dto.ServiceDTO;
+import com.sti.cmart.other.request.DistanceRequest;
 import com.sti.cmart.util.SearchCriteria;
 import org.springframework.data.domain.Page;
+
+import java.io.IOException;
 
 public interface ServicesService {
     //findById
@@ -19,4 +23,6 @@ public interface ServicesService {
 
     //delete
     void delete(Long id);
+
+    Object findByCityByAddress(DistanceRequest distanceRequest) throws IOException, InterruptedException, ApiException;
 }

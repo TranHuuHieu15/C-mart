@@ -3,6 +3,8 @@ package com.sti.cmart.model.dto;
 import com.sti.cmart.entity.Account;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -18,7 +20,6 @@ public class AccountDTO {
     private Boolean isActive;
     private String image;
     private Short status;
-    private Long roleId;
 //    private Long eWalletsId;
 //    private Long addressId;
 //    private Long vehiclesId;

@@ -3,6 +3,7 @@ package com.sti.cmart.controller;
 import com.sti.cmart.facade.ServiceFacade;
 import com.sti.cmart.model.common.ResponseHandler;
 import com.sti.cmart.model.dto.ServiceDTO;
+import com.sti.cmart.other.request.DistanceRequest;
 import com.sti.cmart.util.SearchCriteria;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,12 +17,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.sti.cmart.util.Constants.Paths.STAFF_PATH;
+import static com.sti.cmart.util.Constants.Paths.APP_PATH;
 
 @Tag(name = "ServiceController", description = "Service controller")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(STAFF_PATH + "/services")
+@RequestMapping(APP_PATH + "/services")
 public class ServiceController {
 
     private final ServiceFacade serviceFacade;
@@ -216,4 +217,31 @@ public class ServiceController {
         return ResponseHandler.response(HttpStatus.OK, "Delete Success", true);
     }
 
+    //nhận vào một địa chỉ sau đó tim ra thành phố sau đó tìm ra dịch vụ theo thành phố
+    @SneakyThrows
+    @PostMapping("/findByCityByAddress")
+    @Operation(summary = "find by address service", description = "find by address service")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "response success",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json"
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "response failed",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json"
+                            )
+                    }
+            )}
+    )
+    public ResponseEntity<Object> findByCityByAddress(@RequestBody DistanceRequest distanceRequest) {
+        return ResponseHandler.response(HttpStatus.OK, serviceFacade.findByCityByAddress(distanceRequest), true);
+    }
 }

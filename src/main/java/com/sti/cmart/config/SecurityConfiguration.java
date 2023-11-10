@@ -1,6 +1,6 @@
 package com.sti.cmart.config;
 
-import com.sti.cmart.service.CustomerUserDetailsService;
+import com.sti.cmart.service.impl.CustomerUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,11 +31,13 @@ public class SecurityConfiguration {
                         "/swagger-ui/**",
                         "/swagger-ui.html",
                         "/v3/api-docs/**",// dùng để test swagger
-                        "api/v1/c-mart/account/**",
-                        "api/v1/c-mart/google-map/**",
-                        "api/v1/c-mart/staff/**",
-                        "api/v1/c-mart/register",
-                        "api/v1/c-mart/login",
+                        "/api/v1/c-mart/account/**",
+                        "/api/v1/c-mart/google-map/**",
+                        "/api/v1/c-mart/staff/**",
+                        "/api/v1/c-mart/accounts/**",
+                        "/api/v1/c-mart/services/**",
+                        "/api/v1/c-mart/register",
+                        "/api/v1/c-mart/login",
                         "/error")
                 .permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")

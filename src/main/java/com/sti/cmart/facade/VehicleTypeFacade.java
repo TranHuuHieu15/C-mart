@@ -40,9 +40,9 @@ public class VehicleTypeFacade {
     public VehicleTypeDTO save(VehicleTypeDTO vehicleTypeDTO) throws ArchitectureException {
         if (vehicleTypeDTO == null)
             throw new InvalidParamException();
-        VehicleTypeDTO dto = vehicleTypeService.findById(vehicleTypeDTO.getId());
-        if (dto != null)
-            throw new EntityAlreadyExistException();
+//        VehicleTypeDTO dto = vehicleTypeService.findById(vehicleTypeDTO.getId());
+//        if (dto != null)
+//            throw new EntityAlreadyExistException();
         return vehicleTypeService.save(vehicleTypeDTO);
     }
 
@@ -50,6 +50,7 @@ public class VehicleTypeFacade {
     public VehicleTypeDTO update(Long id, VehicleTypeDTO dto) throws ArchitectureException {
         if (id == null || dto == null)
             throw new InvalidParamException();
+        findById(id);
         VehicleTypeDTO vehicleTypeDTO = vehicleTypeService.findById(id);
         if (vehicleTypeDTO == null)
             throw new EntityNotFoundException();

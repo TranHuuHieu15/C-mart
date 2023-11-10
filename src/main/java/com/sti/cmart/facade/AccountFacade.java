@@ -12,6 +12,8 @@ import com.sti.cmart.util.SearchCriteria;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class AccountFacade {
 
     private final AccountService accountService;
+    private final PasswordEncoder passwordEncoder;
 
     //find by id
     public AccountDTO findById(Long id) throws ArchitectureException{
@@ -61,29 +64,44 @@ public class AccountFacade {
     }
 
     //save
-    public ResponseEntity<?> save(AccountDTO accountDTO) throws ArchitectureException{
-        if (accountDTO == null)
-            throw new InvalidParamException();
-//        AccountDTO dto = accountService.findById(accountDTO.getId());
-        AccountDTO email = accountService.findByEmail(accountDTO.getEmail());
-        AccountDTO username = accountService.findByUsername(accountDTO.getUsername());
-        AccountDTO phone = accountService.findByPhone(accountDTO.getPhone());
-        if ( email != null || username != null || phone != null)
-            throw new EntityAlreadyExistException();
-        return accountService.save(accountDTO);
-    }
+//    public ResponseEntity<?> save(AccountDTO accountDTO) throws ArchitectureException{
+//        if (accountDTO == null)
+//            throw new InvalidParamException();
+////        AccountDTO dto = accountService.findById(accountDTO.getId());
+//        AccountDTO email = accountService.findByEmail(accountDTO.getEmail());
+//        AccountDTO username = accountService.findByUsername(accountDTO.getUsername());
+//        AccountDTO phone = accountService.findByPhone(accountDTO.getPhone());
+//        if ( email != null || username != null || phone != null)
+//            throw new EntityAlreadyExistException();
+//        return accountService.save(accountDTO);
+//    }
 
 //    //update
-    public AccountDTO update(AccountDTO accountDTO) throws ArchitectureException {
-        if (accountDTO == null)
+    public AccountDTO update(Long id, AccountDTO accountDTO) throws ArchitectureException {
+        if (accountDTO == null|| id == null)
             throw new InvalidParamException();
-        checkIdExists(accountDTO.getId());
-        AccountDTO email = accountService.findByEmail(accountDTO.getEmail());
-        AccountDTO username = accountService.findByUsername(accountDTO.getUsername());
-        AccountDTO phone = accountService.findByPhone(accountDTO.getPhone());
-        if (email == null || username == null || phone == null)
-            throw new EntityAlreadyExistException();
-        return accountService.saveDTO(accountDTO);
+        checkIdExists(id);
+        AccountDTO account = accountService.findById(id);
+        if (account == null)
+            throw new EntityNotFoundException();
+//        System.out.println(account.getRoleId());
+        account.setId(accountDTO.getId());
+        account.setFullname(accountDTO.getFullname());
+        account.setUsername(accountDTO.getUsername());
+        account.setPhone(accountDTO.getPhone());
+        account.setEmail(accountDTO.getEmail());
+        account.setStatus(accountDTO.getStatus());
+        account.setImage(accountDTO.getImage());
+        account.setPassword(passwordEncoder.encode(accountDTO.getPassword()));
+        account.setIsActive(accountDTO.getIsActive());
+//        account.setRoleId(account.getRoleId());
+
+//        AccountDTO email = accountService.findByEmail(accountDTO.getEmail());
+//        AccountDTO username = accountService.findByUsername(accountDTO.getUsername());
+//        AccountDTO phone = accountService.findByPhone(accountDTO.getPhone());
+//        if (email == null || username == null || phone == null)
+//            throw new EntityAlreadyExistException();
+        return accountService.saveDTO(account);
     }
 
     //delete
@@ -124,12 +142,12 @@ public class AccountFacade {
         return list;
     }
 
-    public ResponseEntity<?> login(LoginRequest loginRequest) throws ArchitectureException{
-        if (loginRequest == null)
-            throw new InvalidParamException();
-        AccountDTO account = accountService.findByUsername(loginRequest.getUsername());
-        if (account == null)
-            throw new EntityNotFoundException();
-        return accountService.login(loginRequest);
-    }
+//    public ResponseEntity<?> login(LoginRequest loginRequest) throws ArchitectureException{
+//        if (loginRequest == null)
+//            throw new InvalidParamException();
+//        AccountDTO account = accountService.findByUsername(loginRequest.getUsername());
+//        if (account == null)
+//            throw new EntityNotFoundException();
+//        return accountService.login(loginRequest);
+//    }
 }

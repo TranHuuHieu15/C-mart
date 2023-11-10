@@ -30,7 +30,7 @@ public class Vehicle {
     @Size(max = 20)
     @NotNull
     @Nationalized
-    @Column(name = "licensePlate", nullable = false, length = 20)
+    @Column(name = "licensePlate", nullable = false, length = 20, unique = true)
     private String licensePlate;
 
     @Size(max = 20)

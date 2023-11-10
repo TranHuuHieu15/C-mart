@@ -1,5 +1,6 @@
 package com.sti.cmart.model.mapper;
 
+import com.sti.cmart.entity.Role;
 import com.sti.cmart.entity.Trip;
 import com.sti.cmart.model.dto.TripDTO;
 import com.sti.cmart.repository.*;
@@ -18,6 +19,8 @@ public class TripMapper implements Function<Trip, TripDTO> {
     private final ServiceRepository serviceRepository;
     private final PaymentRepository paymentRepository;
     private final AccountRepository accountRepository;
+    private final RoleRepository roleRepository;
+    private final TripRepository tripRepository;
 
 
     @Override
@@ -67,14 +70,15 @@ public class TripMapper implements Function<Trip, TripDTO> {
                     .orElseThrow(() -> new EntityNotFoundException("Payment not found")));
         }
 
+
         if (tripDTO.getCustomer() != null) {
-            trip.setUser(accountRepository.findById(tripDTO.getCustomer())
-                    .orElseThrow(() -> new EntityNotFoundException("Customer not found")));
+            trip.setUser(roleRepository.findByAccount_Id(tripDTO.getCustomer()));
+//                    .orElseThrow(() -> new EntityNotFoundException("Customer not found")));
         }
 
         if (tripDTO.getDriver() != null) {
-            trip.setDriver(accountRepository.findById(tripDTO.getDriver())
-                    .orElseThrow(() -> new EntityNotFoundException("Driver not found")));
+            trip.setDriver(roleRepository.findByAccount_Id(tripDTO.getDriver()));
+//                    .orElseThrow(() -> new EntityNotFoundException("Driver not found")));
         }
 
         return trip;

@@ -1,10 +1,12 @@
 package com.sti.cmart.controller;
 
 import com.sti.cmart.facade.AccountFacade;
+import com.sti.cmart.facade.AuthenticateFacade;
 import com.sti.cmart.model.dto.AccountDTO;
 import com.sti.cmart.model.dto.LoginDTO;
 import com.sti.cmart.model.dto.RegisterDTO;
 import com.sti.cmart.other.request.LoginRequest;
+import com.sti.cmart.other.request.RegisterRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -28,6 +30,7 @@ import static com.sti.cmart.util.Constants.Paths.APP_PATH;
 public class AuthenticateController {
 
     private final AccountFacade accountFacade;
+    private final AuthenticateFacade authenticateFacade;
 
     @SneakyThrows
     @PostMapping("/register")
@@ -54,8 +57,8 @@ public class AuthenticateController {
                     }
             )}
     )
-    public ResponseEntity<?> register(@RequestBody AccountDTO registerResponse) {
-        return accountFacade.save(registerResponse);
+    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+        return authenticateFacade.register(registerRequest);
     }
 
     @SneakyThrows
@@ -84,7 +87,7 @@ public class AuthenticateController {
             )}
     )
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        return accountFacade.login(loginRequest);
+        return authenticateFacade.login(loginRequest);
     }
 
 
